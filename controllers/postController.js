@@ -5,6 +5,10 @@ const list = async (req, res) => {
   res.render("index", { posts });
 };
 
+const showCreate = async (req, res) => {
+  res.render("post");
+};
+
 const create = async (req, res) => {
   const { title, message } = req.body;
   const { id } = req.user;
@@ -25,6 +29,7 @@ const remove = async (req, res) => {
 
 module.exports = {
   list,
+  showCreate,
   create,
   showRemove,
   remove,
