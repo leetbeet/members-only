@@ -12,7 +12,7 @@ exports.validatePost = [
     .trim()
     .escape()
     .notEmpty()
-    .withMessage("Message requried")
+    .withMessage("Message required")
     .isLength({ max: 150 })
     .withMessage("Message must be at most 150 characters long"),
 ];
