@@ -8,6 +8,10 @@ app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: false }));
 const assetsPath = path.join(__dirname, "public");
 app.use(express.static(assetsPath));
+app.use((req, res, next) => {
+  res.locals.user = req.user;
+  next();
+});
 
 app.get("/", (req, res) => res.render("index"));
 
