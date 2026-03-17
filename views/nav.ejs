@@ -1,0 +1,15 @@
+<nav>
+  <h2>Clubhouse</h2>
+  <div>
+    <% if (!user) { %>
+      <div>
+        <a href="/sign-up"><button class="sing-up">Sign up</button></a>
+        <a href="/login"><button class="login">Login</button></a>
+      </div>
+    <% else { %>
+      <form action="/logout" method="POST">
+        <button class="logout">Logout</button>
+      </form>
+    <% } %>
+  </div>
+</nav>
