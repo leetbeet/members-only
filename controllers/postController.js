@@ -17,11 +17,6 @@ const create = async (req, res) => {
   res.redirect("/");
 };
 
-const showRemove = async (req, res) => {
-  const post = await postModel.getById(req.params.id);
-  res.render("removePost", { post });
-};
-
 const remove = async (req, res) => {
   await postModel.remove(req.params.id);
   res.redirect("/");
@@ -31,6 +26,5 @@ module.exports = {
   list,
   showCreate,
   create,
-  showRemove,
   remove,
 };
