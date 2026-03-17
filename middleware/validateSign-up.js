@@ -1,6 +1,6 @@
 const { body } = require("express-validator");
 
-exports.validatePost = [
+exports.validateSignup = [
   body("firstName")
     .trim()
     .escape()
