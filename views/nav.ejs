@@ -3,10 +3,10 @@
   <div>
     <% if (!user) { %>
       <div>
-        <a href="/sign-up"><button class="sing-up">Sign up</button></a>
+        <a href="/sign-up"><button class="sign-up">Sign up</button></a>
         <a href="/login"><button class="login">Login</button></a>
       </div>
-    <% else { %>
+    <% } else { %>
       <form action="/logout" method="POST">
         <button class="logout">Logout</button>
       </form>
