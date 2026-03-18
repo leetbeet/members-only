@@ -5,8 +5,8 @@ const showCreate = async (req, res) => {
 };
 
 const create = async (req, res) => {
-  const { firstName, lastName, password } = req.body;
-  await userModel.create(firstName, lastName, password);
+  const { firstName, lastName, username, password } = req.body;
+  await userModel.create(firstName, lastName, username, password);
   res.redirect("/");
 };
 
