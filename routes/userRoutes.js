@@ -7,7 +7,12 @@ const { validateSignup } = require("../middleware/validateSign-up");
 const handleValidation = require("../middleware/handleValidation");
 
 router.get("/sign-up", controller.showCreate);
-router.post("/sign-up", validateSignup, handleValidation("sign-up"));
+router.post(
+  "/sign-up",
+  validateSignup,
+  handleValidation("sign-up"),
+  controller.create,
+);
 
 router.get("/login", controller.showLogin);
 router.post(
