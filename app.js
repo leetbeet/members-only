@@ -2,6 +2,8 @@ const path = require("node:path");
 const express = require("express");
 const session = require("express-session");
 const passport = require("passport");
+const postRoutes = require("./routes/postRoutes");
+const userRoutes = require("./routes/userRoutes");
 require("dotenv").config();
 
 const app = express();
@@ -26,7 +28,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get("/", (req, res) => res.render("index"));
+app.use("/", postRoutes, userRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
