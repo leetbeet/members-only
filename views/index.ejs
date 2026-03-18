@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+  </head>
+  <body>
+    <%- include('./nav'); -%>
+
+    <% posts.forEach((post) => { %>
+      <div class="post">
+        <h3><%= post.title %></h3>
+        <p><%= post.message %></p>
+
+        <% if (user && user.is_member) { %>
+          <p>By <%= post.username %></p>
+          <p><%= post.created_at %></p>
+        <% } %>
+
+        <% if (user && user.is_admin) { %>
+          <button onclick="document.getElementById('removePostDialog-<%= post.id %>').showModal()">
+            Delete
+          </button>
+
+          <%- include('./removePost', { id: post.id }) %>
+        <% } %>
+      </div>
+    <% }) %>
+  </body>
+</html>
