@@ -10,14 +10,19 @@ const showCreate = async (req, res) => {
 };
 
 const create = async (req, res) => {
-  const { title, message } = req.body;
-  const { id } = req.user;
+  if (!req.user) return res.redirect("/login");
 
-  await postModel.create(id, title, message);
+  const { title, message } = req.body;
+  await postModel.create(req.user.id, title, message);
+
   res.redirect("/");
 };
 
 const remove = async (req, res) => {
+  if (!req.user || !req.user.is_admin) {
+    return res.status(403).send("Forbidden");
+  }
+
   await postModel.remove(req.params.id);
   res.redirect("/");
 };
