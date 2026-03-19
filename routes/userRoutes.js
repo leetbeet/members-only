@@ -19,10 +19,23 @@ router.post(
   "/login",
   validateLogin,
   handleValidation("login"),
-  passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/login",
-  }),
+  (req, res, next) => {
+    passport.authenticate("local", (err, user, info) => {
+      if (err) return next(err);
+
+      if (!user) {
+        return res.render("login", {
+          errors: [{ msg: info.message }],
+          oldInput: req.body,
+        });
+      }
+
+      req.login(user, (err) => {
+        if (err) return next(err);
+        return res.redirect("/");
+      });
+    })(req, res, next);
+  },
 );
 
 router.post("/logout", (req, res, next) => {
