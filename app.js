@@ -31,6 +31,15 @@ app.use((req, res, next) => {
 
 app.use("/", postRoutes, userRoutes);
 
+app.use((req, res) => {
+  res.status(404).render("404", { message: "Page not found" });
+});
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).render("500", { message: "Something went wrong!" });
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Express app listening on port ${PORT}!`);
