@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Post</title>
+  </head>
+  <body>
+    <%- include('./nav'); -%>
+    <h3>Create Post</h3>
+    <%- include('./errors'); -%>
+    <form action="/create" method="POST">
+      <label for="title">Title: </label>
+      <input type="text" id="title" name="title" />
+
+      <label for="message">Message: </label>
+      <textarea name="message" id="message"></textarea>
+
+      <button type="submit">Post</button>
+    </form>
+  </body>
+</html>
