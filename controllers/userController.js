@@ -1,10 +1,14 @@
 const userModel = require("../models/userModel");
 
-const showCreate = async (req, res) => {
-  res.render("sign-up");
+const showCreate = async (req, res, next) => {
+  try {
+    res.render("sign-up");
+  } catch (err) {
+    next(err);
+  }
 };
 
-const create = async (req, res) => {
+const create = async (req, res, next) => {
   const { firstName, lastName, username, password } = req.body;
 
   try {
@@ -17,26 +21,37 @@ const create = async (req, res) => {
         oldInput: req.body,
       });
     }
-
-    throw err;
+    next(err);
   }
 };
 
-const showLogin = async (req, res) => {
-  res.render("login");
+const showLogin = async (req, res, next) => {
+  try {
+    res.render("login");
+  } catch (err) {
+    next(err);
+  }
 };
 
-const makeMember = async (req, res) => {
-  if (!req.user) return res.status(401).send("Unauthorized");
-  await userModel.makeMember(req.user.id);
-  res.status(200).send("OK");
+const makeMember = async (req, res, next) => {
+  try {
+    if (!req.user) return res.status(401).send("Unauthorized");
+    await userModel.makeMember(req.user.id);
+    res.status(200).send("OK");
+  } catch (err) {
+    next(err);
+  }
 };
 
-const makeAdmin = async (req, res) => {
-  if (!req.user || !req.user.is_member)
-    return res.status(401).send("Unauthorized");
-  await userModel.makeAdmin(req.user.id);
-  res.status(200).send("OK");
+const makeAdmin = async (req, res, next) => {
+  try {
+    if (!req.user || !req.user.is_member)
+      return res.status(401).send("Unauthorized");
+    await userModel.makeAdmin(req.user.id);
+    res.status(200).send("OK");
+  } catch (err) {
+    next(err);
+  }
 };
 
 module.exports = {
