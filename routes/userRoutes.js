@@ -5,6 +5,7 @@ const controller = require("../controllers/userController");
 const { validateLogin } = require("../middleware/validateLogin");
 const { validateSignup } = require("../middleware/validateSign-up");
 const handleValidation = require("../middleware/handleValidation");
+const { ensureAuthenticated } = require("../middleware/auth");
 
 router.get("/sign-up", controller.showCreate);
 router.post(
@@ -44,5 +45,9 @@ router.post("/logout", (req, res, next) => {
     res.redirect("/");
   });
 });
+
+router.post("/become-member", ensureAuthenticated, controller.makeMember);
+
+router.post("/become-admin", ensureAuthenticated, controller.makeAdmin);
 
 module.exports = router;

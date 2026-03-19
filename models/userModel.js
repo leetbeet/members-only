@@ -29,9 +29,27 @@ const getAll = async () => {
   return result.rows;
 };
 
+const makeMember = async (id) => {
+  const result = await pool.query(
+    "UPDATE users SET is_member=TRUE WHERE id=$1 RETURNING *",
+    [id],
+  );
+  return result.rows[0];
+};
+
+const makeAdmin = async (id) => {
+  const result = await pool.query(
+    "UPDATE users SET is_admin=TRUE WHERE id=$1 RETURNING *",
+    [id],
+  );
+  return result.rows[0];
+};
+
 module.exports = {
   create,
   getById,
   getByUsername,
   getAll,
+  makeMember,
+  makeAdmin,
 };

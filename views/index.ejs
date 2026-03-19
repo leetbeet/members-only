@@ -8,6 +8,20 @@
   <body>
     <%- include('./nav'); -%>
 
+    <div id="actions">
+      <% if (user) { %>
+        <% if (!user.is_member) { %>
+          <button id="becomeMemberBtn">Become a Member</button>
+        <% } %>
+
+        <% if (!user.is_admin) { %>
+          <button id="becomeAdminBtn">Become an Admin</button>
+        <% } %>
+
+        <a href="/create"><button>Create New Post</button></a>
+      <% } %>
+    </div>
+
     <% posts.forEach((post) => { %>
       <div class="post">
         <h3><%= post.title %></h3>
@@ -27,5 +41,35 @@
         <% } %>
       </div>
     <% }) %>
+
+    <script>
+      const memberBtn = document.getElementById('becomeMemberBtn');
+      if(memberBtn){
+        memberBtn.addEventListener('click', async () => {
+          const code = prompt('Enter member code:');
+          if(code === '<%= process.env.MEMBER_CODE %>'){
+            alert('You are now a member!');
+            await fetch('/become-member', { method: 'POST' });
+            location.reload();
+          } else {
+            alert('Incorrect code.');
+          }
+        });
+      }
+
+      const adminBtn = document.getElementById('becomeAdminBtn');
+      if(adminBtn){
+        adminBtn.addEventListener('click', async () => {
+          const code = prompt('Enter admin code:');
+          if(code === '<%= process.env.ADMIN_CODE %>'){
+            alert('You are now an admin!');
+            await fetch('/become-admin', { method: 'POST' });
+            location.reload();
+          } else {
+            alert('Incorrect code.');
+          }
+        });
+      }
+    </script>
   </body>
 </html>

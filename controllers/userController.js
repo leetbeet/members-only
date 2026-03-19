@@ -26,8 +26,23 @@ const showLogin = async (req, res) => {
   res.render("login");
 };
 
+const makeMember = async (req, res) => {
+  if (!req.user) return res.status(401).send("Unauthorized");
+  await userModel.makeMember(req.user.id);
+  res.status(200).send("OK");
+};
+
+const makeAdmin = async (req, res) => {
+  if (!req.user || !req.user.is_member)
+    return res.status(401).send("Unauthorized");
+  await userModel.makeAdmin(req.user.id);
+  res.status(200).send("OK");
+};
+
 module.exports = {
   showCreate,
   create,
   showLogin,
+  makeMember,
+  makeAdmin,
 };
