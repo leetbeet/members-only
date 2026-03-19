@@ -15,7 +15,7 @@
 
         <% if (user && user.is_member) { %>
           <p>By <%= post.username %></p>
-          <p><%= post.created_at %></p>
+          <p><%= post.date %></p>
         <% } %>
 
         <% if (user && user.is_admin) { %>
