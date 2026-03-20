@@ -3,20 +3,26 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/index.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/nav.css">
     <title>Home</title>
   </head>
   <body>
     <%- include('./nav'); -%>
 
+    <h3>Posts</h3>
+
     <div id="actions">
       <% if (user) { %>
-        <% if (!user.is_member) { %>
-          <button id="becomeMemberBtn">Become a Member</button>
-        <% } %>
-
-        <% if (!user.is_admin) { %>
-          <button id="becomeAdminBtn">Become an Admin</button>
-        <% } %>
+        <div>
+          <% if (!user.is_member) { %>
+            <button id="becomeMemberBtn">Become a Member</button>
+          <% } %>
+          <% if (!user.is_admin) { %>
+            <button id="becomeAdminBtn">Become an Admin</button>
+          <% } %>
+        </div>
 
         <a href="/create"><button>Create New Post</button></a>
       <% } %>
@@ -29,7 +35,7 @@
 
         <% if (user && user.is_member) { %>
           <p>By <%= post.username %></p>
-          <p><%= post.date %></p>
+          <p><%= new Date(post.date).toLocaleDateString() %></p>
         <% } %>
 
         <% if (user && user.is_admin) { %>
