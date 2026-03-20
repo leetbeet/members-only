@@ -36,6 +36,11 @@ nav button.logout:hover {
   color: white;
 }
 
+nav a {
+  text-decoration: none;
+  color: black;
+}
+
 @media (max-width: 500px) {
   nav {
     flex-direction: column;
